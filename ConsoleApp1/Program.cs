@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Book[] Books = new Book[0];
             Reader[] Readers = new Reader[0];
             Console.WriteLine("Программа базы данных библиотеки");
-            while(true)
+            while (true)
             {
                 Console.WriteLine("");
                 Console.WriteLine("Команды:");
@@ -50,7 +46,7 @@ namespace ConsoleApp1
                             case "reader":
                                 {
                                     Array.Resize(ref Readers, Readers.Length + 1);
-                                    Readers[Readers.Length - 1]=new Reader();
+                                    Readers[Readers.Length - 1] = new Reader();
                                     Readers[Readers.Length - 1] = Cons.Addreader();
                                 }
                                 break;
@@ -58,13 +54,13 @@ namespace ConsoleApp1
                                 {
                                     Array.Resize(ref Books, Books.Length + 1);
                                     Books[Books.Length - 1] = new Book();
-                                    Books[Books.Length - 1]=Cons.AddBook();
+                                    Books[Books.Length - 1] = Cons.AddBook();
                                 }
                                 break;
                             case "libvis":
                                 int i;
                                 bool t;
-                                if (Books.Length==0 || Readers.Length==0)
+                                if (Books.Length == 0 || Readers.Length == 0)
                                 {
                                     Console.WriteLine("Нет записи о книгах или читателях, посещение невозможно");
                                 }
@@ -129,7 +125,7 @@ namespace ConsoleApp1
                                 {
                                     Console.WriteLine("Список книг");
                                     int i;
-                                    for ( i = 0; i < Books.Length; i++)
+                                    for (i = 0; i < Books.Length; i++)
                                     {
                                         Console.WriteLine($"{i + 1} {Books[i].Title}");
                                     }
@@ -148,7 +144,7 @@ namespace ConsoleApp1
                                     otv = Console.ReadLine().ToLower();
                                     if (otv == "да")
                                     {
-                                        for (int j=i; j < Books.Length - 1; j++)
+                                        for (int j = i; j < Books.Length - 1; j++)
                                         {
                                             Books[j] = Books[j + 1];
                                         }
@@ -179,7 +175,7 @@ namespace ConsoleApp1
                                     Console.WriteLine("Список Посещений");
                                     for (int k = 0; k < Readers[i].Vis.Length; k++)
                                     {
-                                        Console.WriteLine((k+1)+" "+Readers[i].Vis[k].LibVisInfofull(Books));
+                                        Console.WriteLine((k + 1) + " " + Readers[i].Vis[k].LibVisInfofull(Books));
                                     }
                                     int j;
                                     do
@@ -200,7 +196,7 @@ namespace ConsoleApp1
                         }
                         break;
                     case "write":
-                        if (Books.Length == 0 && Readers.Length == 0) 
+                        if (Books.Length == 0 && Readers.Length == 0)
                         {
                             Console.WriteLine("Нет записей");
                         }
@@ -217,7 +213,7 @@ namespace ConsoleApp1
                         else
                         {
                             Console.WriteLine("Сохранить данные перед выходом? Да/Нет");
-                            if (Console.ReadLine().ToLower()=="да")
+                            if (Console.ReadLine().ToLower() == "да")
                             {
                                 File.Write(Readers, Books);
                             }

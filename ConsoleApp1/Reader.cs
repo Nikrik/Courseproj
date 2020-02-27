@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -14,7 +10,7 @@ namespace ConsoleApp1
         public LibVis[] Vis = new LibVis[0];
         public string ReaderInfo()
         {
-            return FIO + "\n" + Address+ "\n" + Telephone.ToString()+ "\n" + E_mail+"\n";
+            return FIO + "\n" + Address + "\n" + Telephone.ToString() + "\n" + E_mail + "\n";
         }
         public string ReaderInfofull()
         {
@@ -32,7 +28,7 @@ namespace ConsoleApp1
             Telephone = tel;
             Console.WriteLine("Читатель успешно добавлен");
         }
-        public void LibVis(Book[]books)
+        public void LibVis(Book[] books)
         {
             Array.Resize(ref Vis, Vis.Length + 1);
             Vis[Vis.Length - 1] = new LibVis();

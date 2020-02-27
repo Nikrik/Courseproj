@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -11,7 +7,7 @@ namespace ConsoleApp1
         static public Reader Addreader()
         {
             string FIO, Address, E_mail;
-            int prob = 0;
+            int prob;
             ulong Telephone, num;
             do
             {
@@ -47,8 +43,8 @@ namespace ConsoleApp1
             do
             {                                                                                       //аааааааааааа
                 Console.WriteLine("Введите номер телефона (без +, слитно и в полном формате, прим 89123456789)");
-                att=ulong.TryParse(Console.ReadLine(), out Telephone);
-                if (!att || !(Telephone.ToString().Length==11))
+                att = ulong.TryParse(Console.ReadLine(), out Telephone);
+                if (!att || !(Telephone.ToString().Length == 11))
                 {
                     Console.WriteLine("Неправильно введен номер телефона");
                 }
@@ -63,7 +59,7 @@ namespace ConsoleApp1
                 {
                     if (E_mail[i] == '@')
                     {
-                        for (int j=i; j < E_mail.Length; j++)
+                        for (int j = i; j < E_mail.Length; j++)
                         {
                             if (E_mail[j] == '.')
                             {
@@ -79,9 +75,8 @@ namespace ConsoleApp1
             } while (!dog);
             do
             {
-                prob = 0;
                 Console.WriteLine("Введите номер карты читателя");
-                if (!ulong.TryParse(Console.ReadLine(), out num) || !(num.ToString().Length==4*4))
+                if (!ulong.TryParse(Console.ReadLine(), out num) || !(num.ToString().Length == 4 * 4))
                 {
                     Console.WriteLine("Неправильно введен номер карты");
                 }
@@ -116,37 +111,37 @@ namespace ConsoleApp1
                 }
             } while (!t || 0 > j || j >= books.Length);
             Issue = NewDataTime("получения книги");
-            Delivery =NewDataTime("сдачи книги");
+            Delivery = NewDataTime("сдачи книги");
             LibVis vis = new LibVis();
             vis.InputData(Visit, j, Issue, Delivery);
             return vis;
         }
 
         public static void Write(Reader[] Readers, Book[] Books)
-        {            
+        {
             for (int i = 0; i < Readers.Length; i++)
             {
                 Console.WriteLine("Читатель");
-                Console.WriteLine("Индекс: " + (i+1));
+                Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Readers[i].ReaderInfofull());
                 Console.WriteLine("Читательская карта");
-                Console.WriteLine("Индекс: " + (i+1));
+                Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Readers[i].CardInfofull());
                 Console.WriteLine();
             }
             for (int i = 0; i < Books.Length; i++)
             {
                 Console.WriteLine("Книга");
-                Console.WriteLine("Индекс: " + (i+1));
+                Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Books[i].BookInfofull());
                 Console.WriteLine();
             }
             for (int i = 0; i < Readers.Length; i++)
             {
-                if (!(Readers[i].Vis.Length==0))
+                if (!(Readers[i].Vis.Length == 0))
                 {
                     Console.WriteLine("Посещение библиотеки");
-                    Console.WriteLine("Индекс посетителя: " + (i+1));
+                    Console.WriteLine("Индекс посетителя: " + (i + 1));
                     Console.WriteLine("ФИО посетителя: " + Readers[i].FIO);
                     for (int j = 0; j < Readers[i].Vis.Length; j++)
                     {
@@ -165,7 +160,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine($"введите год {msg}");
                 dog = int.TryParse(Console.ReadLine(), out Yeari);
-                if (!dog||1>Yeari||Yeari>9999)
+                if (!dog || 1 > Yeari || Yeari > 9999)
                 {
                     Console.WriteLine("Неправильно введен год");
                 }
@@ -174,7 +169,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine($"введите месяц {msg} (номер месяца)");
                 dog = int.TryParse(Console.ReadLine(), out Monthi);
-                if (!dog||1>Monthi||Monthi>12)
+                if (!dog || 1 > Monthi || Monthi > 12)
                 {
                     Console.WriteLine("Неправильно введен номер месяца");
                 }
@@ -188,7 +183,7 @@ namespace ConsoleApp1
                     Console.WriteLine("Неправильно введен день");
                 }
             } while (!dog || 1 > Dayi || Dayi > DateTime.DaysInMonth(Yeari, Monthi));
-            DateTime ret= new DateTime(Yeari, Monthi, Dayi);
+            DateTime ret = new DateTime(Yeari, Monthi, Dayi);
             return ret;
         }
 
@@ -256,11 +251,11 @@ namespace ConsoleApp1
             Books.InputData(Autor, Title, Yeari, Summary, Copies, Prise);
             return Books;
         }
-        public static void ReaderFIOWrite(Reader[]Readers)
+        public static void ReaderFIOWrite(Reader[] Readers)
         {
             for (int i = 0; i < Readers.Length; i++)
             {
-                Console.WriteLine($"{i+1} {Readers[i].FIO}");
+                Console.WriteLine($"{i + 1} {Readers[i].FIO}");
             }
         }
     }
