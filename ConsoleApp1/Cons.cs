@@ -41,7 +41,7 @@ namespace ConsoleApp1
             } while (Address.Length == 0);
             bool att;
             do
-            {                                                                                       //аааааааааааа
+            {
                 Console.WriteLine("Введите номер телефона (без +, слитно и в полном формате, прим 89123456789)");
                 att = ulong.TryParse(Console.ReadLine(), out Telephone);
                 if (!att || !(Telephone.ToString().Length == 11))
@@ -124,17 +124,18 @@ namespace ConsoleApp1
                 Console.WriteLine("Читатель");
                 Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Readers[i].ReaderInfofull());
+                Console.WriteLine();
                 Console.WriteLine("Читательская карта");
                 Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Readers[i].CardInfofull());
-                Console.WriteLine();
+                Console.WriteLine("\n");
             }
             for (int i = 0; i < Books.Length; i++)
             {
                 Console.WriteLine("Книга");
                 Console.WriteLine("Индекс: " + (i + 1));
                 Console.Write(Books[i].BookInfofull());
-                Console.WriteLine();
+                Console.WriteLine("\n");
             }
             for (int i = 0; i < Readers.Length; i++)
             {

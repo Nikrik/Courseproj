@@ -5,10 +5,6 @@ namespace ConsoleApp1
 {
     static class File
     {
-        //public static void Read(out Reader[] Readers,out Book[] Books)
-        //{
-
-        //}
         public static void Write(Reader[] Readers, Book[] Books)
         {
             string namef;
@@ -50,7 +46,7 @@ namespace ConsoleApp1
             File.Close();
             Console.WriteLine("Запись завершена");
         }
-        private static DateTime Date(string inp)
+        public static DateTime Date(string inp)
         {
             string[] o;
             o = inp.Split('.');
@@ -98,7 +94,10 @@ namespace ConsoleApp1
                 }
                 File.Close();
             }
-            else Console.WriteLine("Файла нет");
+            else
+            {
+                Console.WriteLine("Файла нет");
+            }
         }
     }
 }

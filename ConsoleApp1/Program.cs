@@ -1,11 +1,12 @@
 ﻿using System;
+using System.IO;
 
 namespace ConsoleApp1
 {
     class Program
     {
         static void Main()
-        {
+        {            
             Book[] Books = new Book[0];
             Reader[] Readers = new Reader[0];
             Console.WriteLine("Программа базы данных библиотеки");
@@ -24,16 +25,53 @@ namespace ConsoleApp1
                 switch (otv)
                 {
                     case "readfile":
-                        File.Read(Readers, Books, out Readers, out Books);
+                        {
+                            //File.Read(Readers, Books, out Readers, out Books);
+                            Console.WriteLine("Введите название файла");
+                            string buff = Console.ReadLine();
+                            if (System.IO.File.Exists(buff))
+                            {
+                                LoadManager load = new LoadManager(buff);
+                                Logger log = new Logger(new FileInfo("log.log").AppendText());
+                                LoadLogger loadLogger = new LoadLogger(load, log);
+                                load.BeginRead();
+                                Array.Resize(ref Readers, int.Parse(load.ReadLine()));
+                                for (int i = 0; i < Readers.Length; i++)
+                                {
+                                    Readers[i]=load.Read(new Reader.Loader()) as Reader;
+                                }
+                                Array.Resize(ref Books, int.Parse(load.ReadLine()));
+                                for (int i = 0; i < Books.Length; i++)
+                                {
+                                    Books[i] = load.Read(new Book.Loader()) as Book;
+                                }
+                                load.EndRead();
+                                Console.WriteLine("Чтение успешно завершено");
+                            }
+                        }
                         break;
                     case "writefile":
-                        if (Readers.Length == 0 && Books.Length == 0 || Readers.Length == 0)
+                        if (Books.Length == 0 && Readers.Length == 0)
                         {
                             Console.WriteLine("Нет записей");
                         }
                         else
                         {
-                            File.Write(Readers, Books);
+                            //File.Write(Readers, Books);
+                            Console.WriteLine("Введите название файла");
+                            string buff = Console.ReadLine();
+                            SaveManager save = new SaveManager(buff);
+                            save.WriteLine(Readers.Length.ToString());
+                            for (int i = 0; i < Readers.Length; i++)
+                            {
+                                save.WriteObject(Readers[i]);
+                            }
+                            save.WriteLine(Books.Length.ToString());
+                            for (int i = 0; i < Books.Length; i++)
+                            {
+                                save.WriteObject(Books[i]);
+                            }
+                            Console.WriteLine("Запись успешно завершена");
                         }
                         break;
                     case "add":
@@ -215,7 +253,7 @@ namespace ConsoleApp1
                             Console.WriteLine("Сохранить данные перед выходом? Да/Нет");
                             if (Console.ReadLine().ToLower() == "да")
                             {
-                                File.Write(Readers, Books);
+                                //File.Write(Readers, Books);
                             }
                         }
                         return;

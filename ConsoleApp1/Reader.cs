@@ -2,19 +2,64 @@
 
 namespace ConsoleApp1
 {
-    class Reader : LibCard
+    class Reader : LibCard, IReadbleObject, IWritableObject
     {
         public string FIO;
         private string Address, E_mail;
         private ulong Telephone;
         public LibVis[] Vis = new LibVis[0];
+        public Reader()
+        {
+
+        }
+
+        private Reader(ILoadManager man)
+        {
+            this.FIO = man.ReadLine();
+            this.FIO = this.FIO.Split(' ')[1] + " " + this.FIO.Split(' ')[2]+" " + this.FIO.Split(' ')[3];
+            this.Address = man.ReadLine();
+            this.Address = this.Address.Substring(this.Address.IndexOf(' ')+1);
+            this.E_mail = man.ReadLine();
+            this.E_mail = this.E_mail.Substring(this.E_mail.IndexOf(' ')+1);
+            this.Telephone = ulong.Parse(man.ReadLine().Split(' ')[1]);
+            this.Number = ulong.Parse(man.ReadLine().Split(' ')[2]);
+            this.Issue = DateTime.Parse(man.ReadLine().Split(' ')[1]);
+            this.Validity = DateTime.Parse(man.ReadLine().Split(' ')[2]);
+            Array.Resize(ref Vis, int.Parse(man.ReadLine()));
+            for (int i = 0; i < Vis.Length; i++)
+            {
+                Vis[i] = man.Read(new LibVis.Loader()) as LibVis;
+            }
+        }
+        public class Loader : IReadableObjectLoader
+        {
+            public IReadbleObject Load(ILoadManager man)
+            {
+                return new Reader(man);
+            }
+        }
+
+        public void Write(ISaveManager man)
+        {
+            man.WriteLine(this.ReaderInfofull());
+
+            man.WriteLine(this.CardInfofull());
+
+            man.WriteLine(Vis.Length.ToString());
+            for (int i = 0; i < Vis.Length; i++)
+            {
+                man.WriteObject(Vis[i]);
+            }
+        }
+
         public string ReaderInfo()
         {
             return FIO + "\n" + Address + "\n" + Telephone.ToString() + "\n" + E_mail + "\n";
         }
+
         public string ReaderInfofull()
         {
-            return "ФИО: " + FIO + "\nАдрес: " + Address + "\nТелефон: " + Telephone.ToString() + "\nE-mail: " + E_mail + "\n";
+            return "ФИО: " + FIO + "\nАдрес: " + Address + "\nE-mail: " + E_mail + "\nТелефон: " + Telephone.ToString();
         }
         ~Reader()
         {

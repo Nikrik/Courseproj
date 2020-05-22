@@ -4,8 +4,9 @@ namespace ConsoleApp1
 {
     class LibCard
     {
-        private ulong Number;
-        private DateTime Issue, Validity;
+        protected ulong Number;
+        protected DateTime Issue, Validity;
+
         public void InputData(ulong numcard, DateTime Iss, DateTime Val)
         {
             Number = numcard;
@@ -17,7 +18,7 @@ namespace ConsoleApp1
         {
             string ret = "Номер карты: " + Number.ToString() + "\n";
             ret += "Выдана: " + Issue.Year.ToString() + "." + Issue.Month.ToString() + "." + Issue.Day.ToString() + "\n";
-            ret += "Действитльна по" + Validity.Year.ToString() + "." + Validity.Month.ToString() + "." + Validity.Day.ToString() + "\n";
+            ret += "Действитльна по: " + Validity.Year.ToString() + "." + Validity.Month.ToString() + "." + Validity.Day.ToString();
             return ret;
         }
         public string CardInfo()
