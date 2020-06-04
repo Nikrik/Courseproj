@@ -244,18 +244,6 @@ namespace ConsoleApp1
                         }
                         break;
                     case "exit":
-                        if (Books.Length == 0 && Readers.Length == 0)
-                        {
-                            Console.WriteLine("Нет записей");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Сохранить данные перед выходом? Да/Нет");
-                            if (Console.ReadLine().ToLower() == "да")
-                            {
-                                //File.Write(Readers, Books);
-                            }
-                        }
                         return;
                     default:
                         Console.WriteLine("Неправильно Введенная команда");
